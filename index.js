@@ -1,9 +1,11 @@
 const express = require('express');
 require('dotenv').config();
 const connection = require('./connection.js');
-const urlroutes = require('./Router/urlroutes.js');
 
+const userroutes = require('./Router/userroutes.js');
+const urlroutes = require('./Router/urlroutes.js');
 const staticroutes=require('./Router/staticrouter.js')
+
 const path = require('path');
 const app = express();
 
@@ -17,16 +19,15 @@ connection()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+ 
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve('./Views'))
 
-
-app.use('/', staticroutes);
-
+app.use('/user', userroutes); 
 app.use('/url', urlroutes);
-
+app.use('/', staticroutes);
+ 
 // app.get('/test', async (req, res) => {
 //     const allurls = await URL.find({});
 //     return res.render('home',{urls: allurls});
