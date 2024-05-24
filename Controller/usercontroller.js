@@ -6,6 +6,18 @@ const handleUserSignup = async (req, res) => {
         name, email, password,
     });
     return res.render('home');
-}
+};
 
-module.exports = handleUserSignup;
+const handleUserLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const User = await user.findOne({ email, password });
+        if (!User) return res.status(400).json({ error: 'user not found!' });
+        
+        return res.render('home');
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error!' });
+    }
+};
+
+module.exports = { handleUserSignup, handleUserLogin };
