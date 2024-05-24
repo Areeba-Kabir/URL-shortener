@@ -5,7 +5,7 @@ const router = express.Router();
 const { handleUserSignup, handleUserLogin } = require('../Controller/usercontroller.js');
 
 router.
-    route('/').post(handleUserSignup);
+    route('/signup').post(handleUserSignup);
 
 router.
     route('/login').post(handleUserLogin)
