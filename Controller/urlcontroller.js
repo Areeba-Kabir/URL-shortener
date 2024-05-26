@@ -8,13 +8,15 @@ async function handleURLShortner(req, res) {
         return res.status(400).json({ error: 'URL is required' });
     }
     const shortID = shortid.generate();
+    const myid = req.user._id;
     try {
         await URL.create({
             shortId: shortID,
             redirectURL: body.url,
             viewHistory: [],
+            createdBy: myid,
         });
-        console.log(`Created new URL with shortId: ${shortID}`);
+        console.log(`Created new URL for user_id: ${myid} with shortId: ${shortID} `);
         return res.render("home.ejs", { id: shortID });
     } catch (error) {
         console.error('Error creating URL:', error);
